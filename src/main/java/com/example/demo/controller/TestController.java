@@ -1,20 +1,23 @@
 package com.example.demo.controller;
 
-import com.example.demo.mapper.UserMapper;
+import com.example.demo.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
 
     @Autowired
-    private UserMapper userMapper;
+    private LoginService loginService;
 
-    @GetMapping("/test")
-    public String test() {
-        int result = userMapper.testConnection();
-        return "DB Connection Test Result: " + result;
+    @GetMapping("/test-login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+
+//        UserDetails userDetails = loginService.loadUserByUsername(username);
+
+        return "DB Connection Test Result: true.";
     }
 }
 
