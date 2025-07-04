@@ -19,22 +19,26 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/login", "/logout", "/css/**", "/js/**").permitAll()
+                    .requestMatchers(
+                            "/login", "/logout", "/login-page",
+                            "/css/**", "/js/**", "/images/**",
+                            "/webjars/**"  // Vue.jsやBootstrapなど含む場合
+                    ).permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(login -> login
+                    .loginPage("/login-page") // ログインページを独自に用意する場合
                     .loginProcessingUrl("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/api/welcome", true)
+                    .defaultSuccessUrl("/welcome", true) // HTML画面へ遷移
                     .permitAll()
             )
             .logout(logout -> logout
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/login-page")
+                    .permitAll()
             );
-
-        System.out.println(new BCryptPasswordEncoder().encode("111"));
 
         return http.build();
     }

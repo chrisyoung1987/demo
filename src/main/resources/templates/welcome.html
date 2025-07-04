@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ようこそ</title>
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- スタイル -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <h1>ようこそ画面</h1>
+    <nav>
+        <a href="/logout">ログアウト</a>
+    </nav>
+</header>
+
+<main id="app">
+    <p>{{ message }}</p>
+    <p>ここはログイン済みユーザー専用のページです。</p>
+</main>
+
+<script th:inline="javascript">
+    let username = /*[[${username}]]*/ 'ゲスト';
+    new Vue({
+        el: '#app',
+        data: {
+            message: username + ' さん、ようこそ！'
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- 任意でCSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="login-form">
+    <h2>ログイン</h2>
+
+    <form method="post" action="/login">
+        <label>ユーザー名:
+            <input type="text" name="username" v-model="username" />
+        </label><br>
+
+        <label>パスワード:
+            <input type="password" name="password" v-model="password" />
+        </label><br>
+
+        <button type="submit">ログイン</button>
+    </form>
+
+    <!-- Spring Securityからのエラー／ログアウト表示 -->
+    <p th:if="${param.error}" style="color: red;">ログイン失敗：ユーザー名またはパスワードが正しくありません</p>
+    <p th:if="${param.logout}" style="color: green;">ログアウトしました</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#login-form',
+        data: {
+            username: '',
+            password: ''
+        }
+    });
+</script>
+</body>
+</html>
